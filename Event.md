@@ -2,6 +2,8 @@
 
 libevent(这里的libevent是一个库)封装了`linux`底层的`epoll`, 安装`Libevent`(这里的libevent是一个PHP扩展, 用来连接PHP与库)扩展或者`Event`扩展让php可以调用`libevent`封装好的函数. 支持I/O, 定时器, 信号. 
 
+> 我们常听的Reactor模型, libevent已经封装好了. 直接调用`EventBase`, `Event`类就是使用`Reactor`模型. 但是有些高性能的服务器, 如`nginx`, `swoole`没有依赖`libevent`库, 而是自己封装了底层的`epoll`, 实现`Reactor`模型.
+
 ## php类
 - `Event`
 - `EventBase`
@@ -23,7 +25,7 @@ $event_base = new EventBase();
 $event = new Event($event_base, $fd, Event::READ | Event::PERSIST, function ($fd) use (&$event_base) {
  $conn = stream_socket_accept($fd);
 
- fwrite($conn, "HTTP/1.0 200 OK\r\nContent-Length: 3\r\n\r\nHi");
+ fwrite($conn, "HTTP/1.0 200 OK\r\nContent-Length: 2\r\n\r\nHi");
  fclose($conn);
 }, $fd);
 
