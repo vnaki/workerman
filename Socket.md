@@ -92,3 +92,9 @@ $event->add();
 
 $event_base->loop();    
 ```
+
+> 为了利用CPU多核的优势, 往往会fork出好几个进程同时监听一个端口. 可以通过`stream_context_set_option`来进行设置.
+
+```php
+stream_context_set_option($fd, 'socket', 'so_reuseport', 1);
+```
