@@ -64,7 +64,7 @@ posix_kill(file_get_contents("pid.txt"), SIGINT);
 php sendSignal.php
 ```
 
-但其实这两种方式的本质是一样的, 都是通过`declare ticks`来实现的:
+但其实这两种方式的本质是一样的, 都是通过`pcntl_signal_dispatch`来实现的:
 
 `pcntl.c`源代码第512行~519行:
 
